@@ -20,12 +20,14 @@ Este projeto é composto por dois microserviços desenvolvidos em Quarkus, que s
 
    ```sh
    git clone https://github.com/JotaNas/ProjectCamelKafka
-## Como executar
+## Ordem de subida dos containers
 
-2. Execute o Docker Compose:
+1. Zookeeper
+2. Kafka
+3. Postgres
+4. Student-service
+5. Camel-service
 
-   ```sh
-   docker-compose up
 
 ## Acesse a interface do Swagger para a API REST:
 
