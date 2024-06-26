@@ -1,6 +1,7 @@
 package com.nttdata.service;
 
 import com.nttdata.dto.StudentDto;
+import com.nttdata.exception.DuplicateCpfException;
 import com.nttdata.repository.StudentRepository;
 import io.quarkus.hibernate.orm.panache.PanacheQuery;
 import io.quarkus.panache.common.Page;
@@ -35,9 +36,15 @@ public class StudentService {
     }
 
     @Transactional
-    public void addStudent(StudentDto createStudent) {
+    public StudentDto addStudent(StudentDto createStudent) throws DuplicateCpfException {
+        if (repository.cpfExists(createStudent.getCpf())) {
+            throw new DuplicateCpfException("CPF já cadastrado");
+        }
+
         Student student = modelMapper.map(createStudent, Student.class);
+
         repository.persist(student);
+        return createStudent;
     }
 
     public List<StudentDto> findByName(String nome) {
@@ -48,7 +55,7 @@ public class StudentService {
     }
 
     public StudentDto findByCpf(String cpf) {
-        Student student = repository.find("cpf", cpf).firstResult();
+        Student student = repository.findByCpf(cpf);
         if (student != null) {
             return modelMapper.map(student, StudentDto.class);
         } else {
@@ -93,4 +100,5 @@ public class StudentService {
             throw new EntityNotFoundException("Não encontramos um estudante com o id: " + id);
         }
     }
+
 }

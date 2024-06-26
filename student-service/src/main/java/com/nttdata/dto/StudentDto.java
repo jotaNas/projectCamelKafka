@@ -5,7 +5,7 @@ import jakarta.validation.constraints.Past;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.validator.constraints.br.CPF;
-import java.time.LocalDate;
+import java.util.Date;
 
 @Getter
 @Setter
@@ -15,5 +15,5 @@ public class StudentDto {
     @NotBlank(message = "Nome não pode estar em branco")
     private String nome;
     @Past(message = "Data de nascimento precisa ser no passado")
-    private LocalDate dataNascimento;
+    private Date dataNascimento;
 }

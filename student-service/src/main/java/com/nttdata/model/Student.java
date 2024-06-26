@@ -11,7 +11,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDate;
+import java.util.Date;
 
 @Entity
 @Getter
@@ -25,7 +25,7 @@ public class Student {
     @NotBlank
     @Size(max=100)
     private String nome;
-    private LocalDate dataNascimento;
+    private Date dataNascimento;
     @NotBlank
     @Size(max=11)
     private String cpf;

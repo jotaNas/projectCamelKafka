@@ -10,5 +10,13 @@ public class StudentRepository implements PanacheRepository<Student> {
     public List<Student> findByName(String nome) {
         return find("LOWER(nome) like LOWER(?1)", "%" + nome.toLowerCase() + "%").list();
     }
+
+    public Student findByCpf(String cpf) {
+        return find("cpf", cpf).firstResult();
+    }
+
+    public boolean cpfExists(String cpf) {
+        return find("cpf", cpf).firstResultOptional().isPresent();
+    }
 }
 

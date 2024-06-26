@@ -54,25 +54,15 @@ public class CamelRouter extends RouteBuilder {
 
                     student.setCpf(row[2].trim());
                     exchange.getIn().setBody(student);
-
                 })
                 .choice()
                 .when(exchangeProperty("isHeader").isEqualTo(true))
-                .to(ExchangePattern.InOnly, "seda:processarEstudante")
+                .log("Header row skipped.")
                 .otherwise()
+                .to(ExchangePattern.InOnly, "seda:processarEstudante")
                 .log("Header row skipped.")
                 .marshal().json()
                 .to("kafka:" + kafkaTopic + "?brokers=" + kafkaBootstrap);
-//                .to("kafka:studentsTopic?brokers=kafka:9092");
 
-        // Define uma route para processar estudants asincronamente
-        from("seda:processarEstudante")
-                .routeId("studentsRouteAsync")
-                .log("Asynchronously processing student: ${body}")
-                .end();
-//                .marshal().json()
-//                .to("kafka:" + kafkaTopic + "?brokers=" + kafkaBootstrap)
-//                .log("Student sent to Kafka: ${body}")
-//                .end();
     }
 }
