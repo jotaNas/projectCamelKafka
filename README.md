@@ -29,7 +29,7 @@ Este projeto é composto por dois microserviços desenvolvidos em Quarkus, que s
 
 ## Acesse a interface do Swagger para a API REST:
 
-Abra o navegador e vá para `http://localhost:8080/q/swagger-ui`.
+Abra o navegador e vá para `http://localhost:8080/swagger-ui`.
 
 ## Endpoints da API
 
